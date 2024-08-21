@@ -1,0 +1,68 @@
+2. Write SQL statement select to display First Name and Last Name of users which ordered 3 and more
+courses. 
+
+CREATE DATABASE Coursedb;
+
+USE Coursedb;
+
+CREATE TABLE Course (
+    ID INT PRIMARY KEY,
+    Name VARCHAR(50)
+);
+
+CREATE TABLE [Order] (
+    ID INT PRIMARY KEY,
+    UserID INT,
+    CourseID INT
+);
+
+CREATE TABLE [User] (
+    ID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50)
+);
+
+INSERT INTO [User] (ID, FirstName, LastName) VALUES (1, 'Peter', 'Jovanovic');
+INSERT INTO [User] (ID, FirstName, LastName) VALUES (2, 'Jozef', 'Djordjevic');
+INSERT INTO [User] (ID, FirstName, LastName) VALUES (3, 'Milan', 'Atkinson');
+INSERT INTO [User] (ID, FirstName, LastName) VALUES (4, 'Maria', 'Armstrong');
+INSERT INTO [User] (ID, FirstName, LastName) VALUES (5, 'Slavomir', 'Cina');
+INSERT INTO [User] (ID, FirstName, LastName) VALUES (6, 'Robert', 'Varga');
+INSERT INTO [User] (ID, FirstName, LastName) VALUES (7, 'Peter', 'Nowak');
+
+INSERT INTO Course (ID, Name) VALUES (1, 'Course A');
+INSERT INTO Course (ID, Name) VALUES (2, 'Course B');
+INSERT INTO Course (ID, Name) VALUES (3, 'Course C');
+INSERT INTO Course (ID, Name) VALUES (4, 'Course D');
+
+INSERT INTO [Order] (ID, UserID, CourseID) VALUES (1, 1, 1);
+INSERT INTO [Order] (ID, UserID, CourseID) VALUES (2, 2, 1);
+INSERT INTO [Order] (ID, UserID, CourseID) VALUES (3, 3, 1);
+INSERT INTO [Order] (ID, UserID, CourseID) VALUES (4, 2, 2);
+INSERT INTO [Order] (ID, UserID, CourseID) VALUES (5, 4, 2);
+INSERT INTO [Order] (ID, UserID, CourseID) VALUES (6, 5, 3);
+INSERT INTO [Order] (ID, UserID, CourseID) VALUES (7, 6, 4);
+INSERT INTO [Order] (ID, UserID, CourseID) VALUES (8, 7, 3);
+INSERT INTO [Order] (ID, UserID, CourseID) VALUES (9, 3, 4);
+INSERT INTO [Order] (ID, UserID, CourseID) VALUES (10, 5, 4);
+INSERT INTO [Order] (ID, UserID, CourseID) VALUES (11, 6, 2);
+INSERT INTO [Order] (ID, UserID, CourseID) VALUES (12, 2, 3);
+
+select * from Course
+
+select * from [Order]
+
+select * from [User]
+
+SELECT
+    u.FirstName,
+    u.LastName
+FROM
+    [User] u
+JOIN
+    [Order] o ON u.ID = o.UserID
+GROUP BY
+    u.FirstName,
+    u.LastName
+HAVING
+    COUNT(o.CourseID) >= 3;
