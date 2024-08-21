@@ -1,0 +1,77 @@
+1). Write SQL statement select to display customer Full Name in one column, their City and Amount of
+sales. We need data only for customers whose mother has brown eyes.
+
+CREATE DATABASE salesDB;
+
+USE salesDB;
+
+CREATE TABLE Sales (
+  ID INT PRIMARY KEY,
+  CustomerID INT,
+  CityID INT,
+  Amount INT
+);
+
+CREATE TABLE Customer (
+  ID INT PRIMARY KEY,
+  Gender VARCHAR(10),
+  FirstName VARCHAR(50),
+  LastName VARCHAR(50),
+  EyeColor VARCHAR(20),
+  IDNumber VARCHAR(15),
+  MotherIDNumber VARCHAR(15),
+  FatherIDNumber VARCHAR(15)
+);
+
+CREATE TABLE Address (
+  ID INT PRIMARY KEY,
+  Country VARCHAR(50),
+  City VARCHAR(50)
+);
+
+INSERT INTO Sales (ID, CustomerID, CityID, Amount) VALUES (1, 3, 2, 500);
+INSERT INTO Sales (ID, CustomerID, CityID, Amount) VALUES (2, 1, 1, 10000);
+INSERT INTO Sales (ID, CustomerID, CityID, Amount) VALUES (3, 4, 4, 800);
+INSERT INTO Sales (ID, CustomerID, CityID, Amount) VALUES (4, 2, 3, 600);
+INSERT INTO Sales (ID, CustomerID, CityID, Amount) VALUES (5, 3, 1, 10000);
+INSERT INTO Sales (ID, CustomerID, CityID, Amount) VALUES (6, 1, 1, 630);
+INSERT INTO Sales (ID, CustomerID, CityID, Amount) VALUES (7, 3, 1, 960);
+
+SELECT * FROM Sales;
+
+INSERT INTO Customer (ID, Gender, FirstName, LastName, EyeColor, IDNumber, MotherIDNumber, FatherIDNumber) 
+VALUES 
+(1, 'Male', 'Peter', 'Cina', 'Blue', 'SK-156-232', NULL, NULL),
+(2, 'Female', 'Adela', 'Cinova', 'Brown', 'SK-216-897', NULL, NULL),
+(3, 'Female', 'Petra', 'Atkinson', 'Blue', 'SK-258-321', 'SK-216-897', 'SK-156-232'),
+(4, 'Male', 'Andrej', 'Nowak', 'Brown', 'SK-244-221', 'SK-411-897', 'SK-226-233'),
+(5, 'Female', 'Andrea', 'Atkinson', 'Green', 'SK-411-897', NULL, NULL),
+(6, 'Male', 'Jozef', 'Jovanovic', 'Green', 'SK-226-233', NULL, NULL);
+
+SELECT * FROM Customer;
+
+INSERT INTO Address (ID, Country, City) 
+VALUES 
+(1, 'Slovakia', 'Presov'),
+(2, 'England', 'London'),
+(3, 'Slovakia', 'Bratislava'),
+(4, 'Slovakia', 'Trnava');
+
+SELECT * FROM Address;
+
+SELECT 
+    CONCAT(c.FirstName, ' ', c.LastName) AS FullName,
+    a.City,
+    s.Amount
+FROM 
+    Customer c
+JOIN 
+    Sales s ON c.ID = s.CustomerID
+JOIN
+    Address a ON s.CityID = a.ID
+WHERE 
+    c.MotherIDNumber IN (
+        SELECT m.IDNumber 
+        FROM Customer m 
+        WHERE m.EyeColor = 'Brown'
+    );
