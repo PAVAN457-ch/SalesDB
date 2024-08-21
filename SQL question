@@ -9,6 +9,8 @@ WHERE
 c.Name LIKE '%iro'
 
 Ans:-
+Amount
+500
 
 It will display the he total sum of the Amount in payment table and ilters 
 the results to include only those rows where the Name in the Clients table ends with 'iro'.
