@@ -1,0 +1,46 @@
+1. What is tuple in Python? What is the difference between list and tuple?
+A) tuple is immutable object and list is mutable objects.List is defined with bracckets [] and tuple is defined with parathesis ()
+
+2. What are the rules for a local and global variable in Python?
+A) local variable decliars within the function and goble variable is listed outside the function
+
+3. What is Python's parameter passing mechanism? Name it and explain it.
+A) Python's parameter passing with pass by object and pass by reference this combines both passing perameters. 
+For immutable objects will be pass by value for mutable objects wil be pass by reference.
+
+4. Write a method to open a text file and display its content?
+A) to open file and display its content in python we can use funtcions open() and read()
+def display_file_content(file_path):
+    with open(file_path, 'r') as file:
+        print(file.read())
+
+# Example usage:
+file_path = 'example.txt'
+display_file_content(file_path)
+
+5. You have two lists: strList = ["Vishesh", "For", "Python"] and valList = [1, 2] for the first two tasks
+and one list valList = [1, 2, 3] for third task. Write the sintax so you will get these results:
+
+1) {'key2': ['Vishesh', 'For', 'Python'], 'key1': [1, 2]}
+2) {'key1': [1, 2, ['vishesh', 'For', 'python']]}
+3) {'1': [1, 2], '3': [3, 4], '2': [2, 3]} # Creating a dictionary of lists using list comprehension.
+
+A)
+1)strList = ["Vishesh", "For", "Python"]
+valList = [1, 2]
+
+result = {'key1': valList, 'key2': strList}
+print(result)
+
+ 2)strList = ["Vishesh", "For", "Python"]
+valList = [1, 2]
+
+result = {'key1': [1, 2, strList]}
+print(result)
+
+3)valList = [1, 2, 3]
+result = {str(i): [i, i+1] for i in valList}
+print(result)
+
+
+
